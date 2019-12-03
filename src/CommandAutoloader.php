@@ -3,9 +3,6 @@ namespace CLIFramework;
 
 /**
  * This class tries to autoload a CommandBase's all sub-commands
- *
- * @method __construct
- * @method autoload
  */
 class CommandAutoloader
 {

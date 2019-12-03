@@ -2,21 +2,16 @@
 
 namespace CLIFramework\Autoload;
 
-use RuntimeException;
-use CodeGen\Expr\NewObjectExpr;
+use CLIFramework\Logger;
 use CodeGen\Block;
-use CodeGen\Statement\UseStatement;
+use CodeGen\Expr\NewObjectExpr;
 use CodeGen\Statement\AssignStatement;
 use CodeGen\Statement\MethodCallStatement;
 use CodeGen\Statement\RequireStatement;
-use Symfony\Component\Finder\Finder;
+use CodeGen\Statement\UseStatement;
+use RuntimeException;
 use Symfony\Component\ClassLoader\ClassMapGenerator;
-use CLIFramework\Logger;
-
-use Universal\ClassLoader\ClassLoader;
-use Universal\ClassLoader\Psr0ClassLoader;
-use Universal\ClassLoader\Psr4ClassLoader;
-use Universal\ClassLoader\MapClassLoader;
+use Symfony\Component\Finder\Finder;
 
 class ComposerAutoloadGenerator
 {
@@ -232,9 +227,9 @@ class ComposerAutoloadGenerator
 
         // Generate classloader initialization code
         $block = new Block();
-        $block[] = new UseStatement(Psr0ClassLoader::class);
-        $block[] = new UseStatement(Psr4ClassLoader::class);
-        $block[] = new UseStatement(MapClassLoader::class);
+        $block[] = new UseStatement('Universal\\ClassLoader\\Psr0ClassLoader');
+        $block[] = new UseStatement('Universal\\ClassLoader\\Psr4ClassLoader');
+        $block[] = new UseStatement('Universal\\ClassLoader\\MapClassLoader');
 
         if (!empty($files)) {
             foreach ($files as $file) {
@@ -255,7 +250,7 @@ class ComposerAutoloadGenerator
             // translate psr-4 mapping for Psr4ClassLoader
             $arg = array();
             foreach ($psr4 as $prefix => $paths) {
-                $arg[] = array($prefix, [$paths]);
+                $arg[] = array($prefix, array($paths));
             }
             $block[] = new AssignStatement('$psr4', new NewObjectExpr('Psr4ClassLoader', array($arg)));
             $block[] = new MethodCallStatement('$psr4', 'register', array(false));

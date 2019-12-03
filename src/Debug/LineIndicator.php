@@ -25,12 +25,12 @@ class LineIndicator
         $toIndex = min($line - 1 + $this->contextLines, count($lines));
 
         if ($fromIndex === $toIndex) {
-            $indexRange = [ $fromIndex ];
+            $indexRange = array($fromIndex);
         } else {
             $indexRange = range($fromIndex, $toIndex);
         }
 
-        $output = [];
+        $output = array();
         $output[] = "$file @ line " . join(',', (array) $line);
         $output[] = str_repeat('=', strlen($output[0]));
         foreach ($indexRange as $index) {

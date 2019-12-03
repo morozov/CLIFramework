@@ -99,16 +99,16 @@ class ProgressBar implements ProgressReporter
             $this->etaTime = date('H:i', ETACalculator::calculateEstimatedTime($finished, $total, $this->start, microtime(true)));
             $this->etaPeriod = ETACalculator::calculateEstimatedPeriod($finished, $total, $this->start, microtime(true));
         }
-        $desc = str_replace([
+        $desc = str_replace(array(
             '%finished%', '%total%', '%unit%', '%percentage%', '%eta_time%', '%eta_period%',
-        ], [
+        ), array(
             $finished,
             $total,
             $this->unit,
             ($percentage * 100) . '%',
             'ETA: ' . $this->etaTime,
             'ETA: ' . $this->etaPeriod,
-        ], $this->descFormat);
+        ), $this->descFormat);
 
         $barSize = $this->terminalWidth
             - mb_strlen($desc)

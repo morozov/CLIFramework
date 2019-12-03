@@ -9,33 +9,21 @@
  */
 namespace CLIFramework;
 
-use Exception;
-use LogicException;
-use InvalidArgumentException;
-use ReflectionObject;
 use ArrayAccess;
-use IteratorAggregate;
-use GetOptionKit\OptionCollection;
-use GetOptionKit\OptionResult;
-use CLIFramework\Prompter;
-use CLIFramework\Application;
-use CLIFramework\Chooser;
-use CLIFramework\CommandLoader;
-use CLIFramework\CommandGroup;
-use CLIFramework\Exception\CommandNotFoundException;
-use CLIFramework\Exception\InvalidCommandArgumentException;
 use CLIFramework\Exception\CommandArgumentNotEnoughException;
 use CLIFramework\Exception\CommandClassNotFoundException;
+use CLIFramework\Exception\CommandNotFoundException;
 use CLIFramework\Exception\ExecuteMethodNotDefinedException;
 use CLIFramework\Exception\ExtensionException;
-use CLIFramework\ArgInfo;
-use CLIFramework\ArgInfoList;
-use CLIFramework\Corrector;
-use CLIFramework\Extension\Extension;
-use CLIFramework\Extension\ExtensionBase;
-use CLIFramework\Extension\CommandExtension;
 use CLIFramework\Extension\ApplicationExtension;
-use CLIFramework\Command\HelpCommand;
+use CLIFramework\Extension\CommandExtension;
+use CLIFramework\Extension\ExtensionBase;
+use GetOptionKit\OptionCollection;
+use GetOptionKit\OptionResult;
+use InvalidArgumentException;
+use IteratorAggregate;
+use LogicException;
+use ReflectionObject;
 
 /**
  * Command based class (application & subcommands inherit from this class)
@@ -814,8 +802,8 @@ abstract class CommandBase implements ArrayAccess, IteratorAggregate, CommandInt
     public function executeWrapper(array $args)
     {
         if (!method_exists($this, 'execute')) {
-            $cmd = $this->createCommand(HelpCommand::class);
-            return $cmd->executeWrapper([$this->getName()]);
+            $cmd = $this->createCommand('CLIFramework\\Command\\HelpCommand');
+            return $cmd->executeWrapper(array($this->getName()));
         }
 
         // Validating arguments

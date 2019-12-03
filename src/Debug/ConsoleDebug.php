@@ -18,7 +18,7 @@ class ConsoleDebug
     public static function dumpException(Exception $e)
     {
         $indicator = new LineIndicator;
-        $output = [];
+        $output = array();
         $output[] = '[' . get_class($e) . '] was thrown with "' . $e->getMessage() . '".';
         $output[] = $indicator->indicateFile($e->getFile(), $e->getLine());
 
@@ -59,7 +59,7 @@ class ConsoleDebug
         }
 
         foreach ($array as $item) {
-            $values = [];
+            $values = array();
             foreach ($keys as $key) {
                 $values[] = $item[$key];
             }

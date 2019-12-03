@@ -28,8 +28,10 @@ class StandardConsole implements Console
     {
         echo $prompt;
 
-        return $this->noEcho(function () use ($prompt) {
-            return $this->read();
+        $self = $this;
+
+        return $this->noEcho(function () use ($self) {
+            return $self->read();
         });
     }
 

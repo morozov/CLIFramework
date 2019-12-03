@@ -263,16 +263,15 @@ class Application extends CommandBase implements CommandInterface
      */
     public function init()
     {
-        // $this->addCommand('list','CLIFramework\\Command\\ListCommand');
         parent::init();
-        $this->command('help', HelpCommand::class);
+        $this->command('help', 'CLIFramework\\Command\\HelpCommand');
         $this->commandGroup("Development Commands", array(
-            'zsh'                 => ZshCompletionCommand::class,
-            'bash'                => BashCompletionCommand::class,
-            'meta'                => MetaCommand::class,
-            'compile'             => CompileCommand::class,
-            'archive'             => ArchiveCommand::class,
-            'github:build-topics' => BuildGitHubWikiTopicsCommand::class,
+            'zsh'                 => 'CLIFramework\\Command\\ZshCompletionCommand',
+            'bash'                => 'CLIFramework\\Command\\BashCompletionCommand',
+            'meta'                => 'CLIFramework\\Command\\MetaCommand',
+            'compile'             => 'CLIFramework\\Command\\CompileCommand',
+            'archive'             => 'CLIFramework\\Command\\ArchiveCommand',
+            'github:build-topics' => 'CLIFramework\\Command\\BuildGitHubWikiTopicsCommand',
         ))->setId('dev');
     }
 

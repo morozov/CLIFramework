@@ -4,9 +4,7 @@ namespace CLIFramework;
 /**
  * Try to correct/suggest user's input
  *
- * @method __construct
  * @method guess
- * @method match
  */
 class Corrector
 {
